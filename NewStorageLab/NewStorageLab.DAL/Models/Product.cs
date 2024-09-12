@@ -18,5 +18,8 @@ public class Product
     [Required]
     public double Price { get; set; }
 
-    public ICollection<Warehouse> GetWarehouses { get; set; } = new List<Warehouse>();
+    public ICollection<Warehouse> Warehouses { get; set; } = new List<Warehouse>();
+
+    public ICollection<WarehouseProduct> WarehouseProducts { get; set; } = new List<WarehouseProduct>();
+
 }
