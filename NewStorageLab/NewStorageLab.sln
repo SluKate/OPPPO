@@ -5,6 +5,10 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewStorageLab", "NewStorageLab\NewStorageLab.csproj", "{95783DB3-ED89-4221-8642-662F9A02C05A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{9D5FBDC2-E75B-4211-A7AE-A1607AC8DF4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewStorageLab.DAL", "NewStorageLab.DAL\NewStorageLab.DAL.csproj", "{F213AC55-1F1A-4500-AEDE-0B4BB2397539}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{95783DB3-ED89-4221-8642-662F9A02C05A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95783DB3-ED89-4221-8642-662F9A02C05A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95783DB3-ED89-4221-8642-662F9A02C05A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F213AC55-1F1A-4500-AEDE-0B4BB2397539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F213AC55-1F1A-4500-AEDE-0B4BB2397539}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F213AC55-1F1A-4500-AEDE-0B4BB2397539}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F213AC55-1F1A-4500-AEDE-0B4BB2397539}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F213AC55-1F1A-4500-AEDE-0B4BB2397539} = {9D5FBDC2-E75B-4211-A7AE-A1607AC8DF4D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EF43875C-2161-4CCA-8433-F4A773C97CEB}
