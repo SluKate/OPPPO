@@ -15,5 +15,8 @@ public class Product
     [Required]
     public string Name { get; set; } = null!;
 
+    [Required]
+    public double Price { get; set; }
+
     public ICollection<Warehouse> GetWarehouses { get; set; } = new List<Warehouse>();
 }
