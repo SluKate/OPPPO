@@ -3,11 +3,13 @@ using NewStorageLab.DAL.Models;
 using NewStorageLab.Domain.DTOs;
 using NewStorageLab.Domain.Services;
 using NewStorageLab.WarehouseService;
+using TaskTracker.Headers;
 
 namespace NewStorageLab.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[ValidationExceptionFilter]
 public class ProductController : ControllerBase
 {
     private readonly IProductService _productService;
