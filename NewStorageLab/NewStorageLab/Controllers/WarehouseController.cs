@@ -2,11 +2,14 @@
 using NewStorageLab.DAL.Models;
 using NewStorageLab.Domain.DTOs;
 using NewStorageLab.Domain.Services;
+using TaskTracker.Headers;
 
 namespace NewStorageLab.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[ValidationExceptionFilter]
+
 public class WarehouseController : ControllerBase
 {
     private readonly IWarehouseService _warehouseService;

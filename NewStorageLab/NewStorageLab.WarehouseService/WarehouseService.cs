@@ -2,6 +2,7 @@
 using NewStorageLab.DAL;
 using NewStorageLab.DAL.Models;
 using NewStorageLab.Domain.DTOs;
+using NewStorageLab.Domain.Exceptions;
 using NewStorageLab.Domain.Services;
 
 namespace NewStorageLab.WarehouseService;
@@ -23,6 +24,11 @@ public class WarehouseService : IWarehouseService
         var res = await _appDbContext.Warehouses
             .Include(x => x.Products)
             .FirstOrDefaultAsync(x => x.Id == warehouseId);
+
+        if (res is null)
+        {
+            throw new ValidationException($"склал с не найден");
+        }
 
         return res;
     }
@@ -96,15 +102,17 @@ public class WarehouseService : IWarehouseService
         var wp = await _appDbContext.WarehouseProducts
             .FirstOrDefaultAsync(x => x.ProductId == shippingDTO.ProductId && x.WareHouseId == warehouseId);
 
-        if (shippingDTO.Count > wp.ProductCount)
+        if (wp is null)
         {
-            wp.ProductCount = 0;
-        }
-        else
-        {
-            wp.ProductCount -= shippingDTO.Count;
+            throw new ValidationException("не найден склад или товар на складе");
         }
 
+        if (shippingDTO.Count > wp.ProductCount)
+        {
+            throw new ValidationException("кол-во запрашиваемого товара превышает кол-во товара на складе");
+        }
+
+        wp.ProductCount -= shippingDTO.Count;
         _appDbContext.Update(wp);
 
         await _appDbContext.SaveChangesAsync();

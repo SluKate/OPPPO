@@ -2,6 +2,7 @@
 using NewStorageLab.DAL;
 using NewStorageLab.DAL.Models;
 using NewStorageLab.Domain.DTOs;
+using NewStorageLab.Domain.Exceptions;
 using NewStorageLab.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,14 @@ public class ProductService: IProductService
 
     public async Task<Product> GetProductAsync(int id)
     {
-        return await _appDbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
+        var res = await _appDbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
+
+        if (res is null)
+        {
+            throw new ValidationException($"продукт с id {id} не найден");
+        }
+
+        return res;
     }
 
     public async Task<IEnumerable<Warehouse>> GetWarehousesFromProductAsync(int productId)
@@ -42,6 +50,11 @@ public class ProductService: IProductService
     {
 
         var products = await _appDbContext.Warehouses.FirstOrDefaultAsync(x => x.Id == warehouseId);
+
+        if (products is null)
+        {
+            throw new ValidationException($"склад с id {warehouseId} не найден");
+        }
 
         var res = _appDbContext.Products.Select(x => new Product()
         {
