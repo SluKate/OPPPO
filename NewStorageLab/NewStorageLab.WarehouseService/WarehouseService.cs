@@ -22,8 +22,6 @@ public class WarehouseService : IWarehouseService
     {
         var res = await _appDbContext.Warehouses
             .Include(x => x.Products)
-            .ThenInclude(x => x.WarehouseProducts)
-            .ThenInclude(x => x.ProductCount)
             .FirstOrDefaultAsync(x => x.Id == warehouseId);
 
         return res;
@@ -36,23 +34,12 @@ public class WarehouseService : IWarehouseService
         return res;
     }
 
-    public async Task<IEnumerable<Warehouse>> GetWarehousesFromProductAsync(int productId)
-    {
-        var product = await _appDbContext.Products.FirstOrDefaultAsync(x => x.Id == productId);
-
-        var res = _appDbContext.Warehouses.Select(x => new Warehouse()
-        {
-            Id = x.Id,
-            Name = x.Name
-        });
-
-        return res;
-    }
-
     public async Task<WarehouseStatsDTO> GetWarehouseStatsAsync(int warehouseId)
     {
-        var warehouseProducts = await _appDbContext.WarehouseProducts.Where(x => x.WareHouseId == warehouseId).ToListAsync();
-
+        var warehouseProducts = await _appDbContext.WarehouseProducts
+            .Where(x => x.WareHouseId == warehouseId)
+            .Include(x => x.Product)
+            .ToListAsync();
         var productsCount = warehouseProducts.Sum(x => x.ProductCount);
 
         double totalPrice = warehouseProducts.Sum(x => x.Product.Price * x.ProductCount);
@@ -83,9 +70,23 @@ public class WarehouseService : IWarehouseService
         var wp = await _appDbContext.WarehouseProducts
             .FirstOrDefaultAsync(x => x.ProductId == deliveryDTO.ProductId && x.WareHouseId == warehouseId);
 
-        wp.ProductCount += deliveryDTO.Count;
+        if (wp is null)
+        {
+            wp = new WarehouseProduct()
+            {
+                ProductId = deliveryDTO.ProductId,
+                WareHouseId = warehouseId,
+                ProductCount = deliveryDTO.Count
+            };
 
-        _appDbContext.Update(wp);
+            await _appDbContext.AddAsync(wp);
+        }
+        else
+        {
+            wp.ProductCount += deliveryDTO.Count;
+
+            _appDbContext.Update(wp);
+        }
 
         await _appDbContext.SaveChangesAsync();
     }

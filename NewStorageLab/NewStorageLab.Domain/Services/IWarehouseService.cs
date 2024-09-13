@@ -7,7 +7,6 @@ public interface IWarehouseService
 {
     Task<Warehouse> GetWarehouseAsync(int warehouseId);
     Task<IEnumerable<Warehouse>> GetWarehousesAsync();
-    Task<IEnumerable<Warehouse>> GetWarehousesFromProductAsync(int productId);
     Task<WarehouseStatsDTO> GetWarehouseStatsAsync(int warehouseId);
     Task<Warehouse> CreateWarehouseAsync(WarehouseCreateDTO warehouseCreateDTO);
     Task ReplenishWarehouseAsync(int warehouseId, WarehouseAdjustmentDTO deliveryDTO);

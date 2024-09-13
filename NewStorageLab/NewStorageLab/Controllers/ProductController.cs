@@ -2,6 +2,7 @@
 using NewStorageLab.DAL.Models;
 using NewStorageLab.Domain.DTOs;
 using NewStorageLab.Domain.Services;
+using NewStorageLab.WarehouseService;
 
 namespace NewStorageLab.Controllers;
 
@@ -20,6 +21,13 @@ public class ProductController : ControllerBase
     {
         var res = await _productService.GetProductAsync(id);
 
+        return Ok(res);
+    }
+
+    [HttpGet("product-warehouses")]
+    public async Task<ActionResult<List<Warehouse>>> GetProductWarehousesAsync(int productId)
+    {
+        var res = await _productService.GetWarehousesFromProductAsync(productId);
         return Ok(res);
     }
 

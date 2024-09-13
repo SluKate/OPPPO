@@ -30,13 +30,6 @@ public class WarehouseController : ControllerBase
         return Ok(res);
     }
 
-    [HttpGet("product-warehouses")]
-    public async Task<ActionResult<List<Warehouse>>> GetProductWarehousesAsync(int productId)
-    {
-        var res = await _warehouseService.GetWarehousesFromProductAsync(productId);
-        return Ok(res);
-    }
-
     [HttpGet("warehouse-stats")]
     public async Task<ActionResult<WarehouseStatsDTO>> GetWareHouseStatsAsync(int warehauseId)
     {

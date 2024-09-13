@@ -25,15 +25,32 @@ public class ProductService: IProductService
         return await _appDbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
     }
 
+    public async Task<IEnumerable<Warehouse>> GetWarehousesFromProductAsync(int productId)
+    {
+        var product = await _appDbContext.Products.FirstOrDefaultAsync(x => x.Id == productId);
+
+        var res = _appDbContext.Warehouses.Select(x => new Warehouse()
+        {
+            Id = x.Id,
+            Name = x.Name
+        });
+
+        return res;
+    }
+
     public async Task<List<Product>> GetWarehouseProductsAsync(int warehouseId)
     {
-        var warehouse = await _appDbContext.Warehouses
-            .Include(x => x.Products)
-            .FirstOrDefaultAsync(x => x.Id == warehouseId);
 
-        var products = warehouse?.Products;
+        var products = await _appDbContext.Warehouses.FirstOrDefaultAsync(x => x.Id == warehouseId);
 
-        return products?.ToList();
+        var res = _appDbContext.Products.Select(x => new Product()
+        {
+            Id = x.Id,
+            Name = x.Name,
+            Price = x.Price
+        });
+
+        return res.ToList();
     }
 
     public async Task<List<Product>> GetProductsAsync()

@@ -9,4 +9,5 @@ public interface IProductService
     Task<List<Product>> GetWarehouseProductsAsync(int warehouseId);
     Task<List<Product>> GetProductsAsync();
     Task<Product> CreateProductAsync(ProductCreationDTO productCreationDTO);
+    Task<IEnumerable<Warehouse>> GetWarehousesFromProductAsync(int productId);
 }
