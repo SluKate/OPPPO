@@ -6,8 +6,6 @@ project.lock.json
 .DS_Store
 *.pyc
 *.db
-*.db-shm
-*.db-wal
 
 # Visual Studio Code
 .vscode
@@ -17,6 +15,8 @@ project.lock.json
 *.user
 *.userosscache
 *.sln.docstates
+*.db-shm
+*.db-wal
 
 # Build results
 [Dd]ebug/
