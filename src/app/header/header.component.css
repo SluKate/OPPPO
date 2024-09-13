@@ -1,0 +1,21 @@
+header {
+    background-color: #FEDBD0;
+    height: 50px;
+    align-content: center;
+    text-align: center;
+    justify-content: space-between;
+
+    & a {
+        color: #442C2E;
+        text-decoration: none;
+        font-size: 20px;
+        font-weight: 200;
+        padding: 5px;
+        margin-right: 30px;
+    }
+
+    & a:hover {
+        border: #442C2E solid 3px;
+        border-radius: 30px;
+    }
+}

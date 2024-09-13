@@ -1,0 +1,11 @@
+<form [formGroup]="createProductForm" (ngSubmit)="createProduct()">
+    <mat-form-field class="example-full-width">
+        <mat-label>Название</mat-label>
+        <input matInput formControlName="productName" placeholder="Укажите название">
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Стоимость</mat-label>
+        <input type="number" formControlName="price" matInput>
+      </mat-form-field>
+      <button mat-stroked-button>Добавить</button>
+</form>
