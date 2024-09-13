@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewStorageLab", "NewStorageLab\NewStorageLab.csproj", "{95783DB3-ED89-4221-8642-662F9A02C05A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewStorageLab", "NewStorageLab\NewStorageLab.csproj", "{95783DB3-ED89-4221-8642-662F9A02C05A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{9D5FBDC2-E75B-4211-A7AE-A1607AC8DF4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewStorageLab.DAL", "NewStorageLab.DAL\NewStorageLab.DAL.csproj", "{F213AC55-1F1A-4500-AEDE-0B4BB2397539}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewStorageLab.DAL", "NewStorageLab.DAL\NewStorageLab.DAL.csproj", "{F213AC55-1F1A-4500-AEDE-0B4BB2397539}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{56FA81C2-5436-4F61-AD37-AA3A11509406}"
 EndProject
@@ -18,6 +18,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewStorageLab.WarehouseService", "NewStorageLab.WarehouseService\NewStorageLab.WarehouseService.csproj", "{8D670DCB-A7B5-4AE4-A8A8-14DBF4EA4284}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewStorageLab.PoductService", "NewStorageLab.PoductService\NewStorageLab.PoductService.csproj", "{FC7E113A-E2AA-45D5-8431-22CBEF3D5EA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{738DA8D9-FE5A-4719-BDFF-2D4A3F32FADC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewStorageTest.Tests", "NewStorageTest.Tests\NewStorageTest.Tests.csproj", "{5733B000-A4D6-4A4A-8E10-7387CBF61860}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,10 @@ Global
 		{FC7E113A-E2AA-45D5-8431-22CBEF3D5EA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC7E113A-E2AA-45D5-8431-22CBEF3D5EA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC7E113A-E2AA-45D5-8431-22CBEF3D5EA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5733B000-A4D6-4A4A-8E10-7387CBF61860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5733B000-A4D6-4A4A-8E10-7387CBF61860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5733B000-A4D6-4A4A-8E10-7387CBF61860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5733B000-A4D6-4A4A-8E10-7387CBF61860}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +62,7 @@ Global
 		{3AE1FA7C-2556-4409-A101-7D874B0B6783} = {56FA81C2-5436-4F61-AD37-AA3A11509406}
 		{8D670DCB-A7B5-4AE4-A8A8-14DBF4EA4284} = {F60C2904-B255-4B35-AB84-68B769280A42}
 		{FC7E113A-E2AA-45D5-8431-22CBEF3D5EA5} = {F60C2904-B255-4B35-AB84-68B769280A42}
+		{5733B000-A4D6-4A4A-8E10-7387CBF61860} = {738DA8D9-FE5A-4719-BDFF-2D4A3F32FADC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EF43875C-2161-4CCA-8433-F4A773C97CEB}
