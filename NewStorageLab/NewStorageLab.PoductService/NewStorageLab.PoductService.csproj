@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NewStorageLab.DAL\NewStorageLab.DAL.csproj" />
+    <ProjectReference Include="..\NewStorageLab.Domain\NewStorageLab.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

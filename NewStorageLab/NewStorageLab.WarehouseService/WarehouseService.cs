@@ -1,0 +1,111 @@
+﻿using Microsoft.EntityFrameworkCore;
+using NewStorageLab.DAL;
+using NewStorageLab.DAL.Models;
+using NewStorageLab.Domain.DTOs;
+using NewStorageLab.Domain.Services;
+
+namespace NewStorageLab.WarehouseService;
+
+public class WarehouseService : IWarehouseService
+{
+    private readonly AppDbContext _appDbContext;
+    private readonly IProductService _productService;
+
+    public WarehouseService(AppDbContext appDbContext, IProductService productService)
+    {
+        _appDbContext = appDbContext;
+        _productService = productService;
+
+    }
+
+    public async Task<Warehouse> GetWarehouseAsync(int warehouseId)
+    {
+        var res = await _appDbContext.Warehouses
+            .Include(x => x.Products)
+            .ThenInclude(x => x.WarehouseProducts)
+            .ThenInclude(x => x.ProductCount)
+            .FirstOrDefaultAsync(x => x.Id == warehouseId);
+
+        return res;
+    }
+
+    public async Task<IEnumerable<Warehouse>> GetWarehousesAsync()
+    {
+        var res = await _appDbContext.Warehouses.ToListAsync();
+
+        return res;
+    }
+
+    public async Task<IEnumerable<Warehouse>> GetWarehousesFromProductAsync(int productId)
+    {
+        var product = await _appDbContext.Products.FirstOrDefaultAsync(x => x.Id == productId);
+
+        var res = _appDbContext.Warehouses.Select(x => new Warehouse()
+        {
+            Id = x.Id,
+            Name = x.Name
+        });
+
+        return res;
+    }
+
+    public async Task<WarehouseStatsDTO> GetWarehouseStatsAsync(int warehouseId)
+    {
+        var warehouseProducts = await _appDbContext.WarehouseProducts.Where(x => x.WareHouseId == warehouseId).ToListAsync();
+
+        var productsCount = warehouseProducts.Sum(x => x.ProductCount);
+
+        double totalPrice = warehouseProducts.Sum(x => x.Product.Price * x.ProductCount);
+
+        return new WarehouseStatsDTO
+        {
+            TotalPrice = totalPrice,
+            TotalProducts = productsCount
+        };
+    }
+
+    public async Task<Warehouse> CreateWarehouseAsync(WarehouseCreateDTO warehouseCreateDTO)
+    {
+        var warehouse = new Warehouse()
+        {
+            Name = warehouseCreateDTO.Name,
+        };
+
+        await _appDbContext.AddAsync(warehouse);
+
+        await _appDbContext.SaveChangesAsync();
+
+        return warehouse;
+    }
+
+    public async Task ReplenishWarehouseAsync(int warehouseId, WarehouseAdjustmentDTO deliveryDTO)
+    {
+        var wp = await _appDbContext.WarehouseProducts
+            .FirstOrDefaultAsync(x => x.ProductId == deliveryDTO.ProductId && x.WareHouseId == warehouseId);
+
+        wp.ProductCount += deliveryDTO.Count;
+
+        _appDbContext.Update(wp);
+
+        await _appDbContext.SaveChangesAsync();
+    }
+
+    public async Task ShipFromWarehouseAsync(int warehouseId, WarehouseAdjustmentDTO shippingDTO)
+    {
+        var wp = await _appDbContext.WarehouseProducts
+            .FirstOrDefaultAsync(x => x.ProductId == shippingDTO.ProductId && x.WareHouseId == warehouseId);
+
+        if (shippingDTO.Count > wp.ProductCount)
+        {
+            wp.ProductCount = 0;
+        }
+        else
+        {
+            wp.ProductCount -= shippingDTO.Count;
+        }
+
+        _appDbContext.Update(wp);
+
+        await _appDbContext.SaveChangesAsync();
+    }
+}

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace NewStorageLab.DAL.Models;
 
@@ -15,4 +10,6 @@ public class Warehouse
     public string Name { get; set; } = null!;
 
     public ICollection<Product> Products { get; set; } = new List<Product>();
+
+    public ICollection<WarehouseProduct> WarehouseProducts { get; set; } = new List<WarehouseProduct>();
 }

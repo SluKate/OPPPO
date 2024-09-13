@@ -15,11 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\NewStorageLab.DAL\NewStorageLab.DAL.csproj" />
+    <ProjectReference Include="..\NewStorageLab.Domain\NewStorageLab.Domain.csproj" />
+    <ProjectReference Include="..\NewStorageLab.PoductService\NewStorageLab.PoductService.csproj" />
+    <ProjectReference Include="..\NewStorageLab.WarehouseService\NewStorageLab.WarehouseService.csproj" />
   </ItemGroup>
 
 </Project>
