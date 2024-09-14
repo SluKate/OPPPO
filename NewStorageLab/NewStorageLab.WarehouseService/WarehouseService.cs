@@ -113,8 +113,29 @@ public class WarehouseService : IWarehouseService
         }
 
         wp.ProductCount -= shippingDTO.Count;
-        _appDbContext.Update(wp);
 
+        if (wp.ProductCount != 0)
+        {
+            _appDbContext.Update(wp);
+        }
+        else
+        {
+            await RemoveProductFromWarehouseAsync(wp.Id);
+        }
+
+        await _appDbContext.SaveChangesAsync();
+    }
+
+    private async Task RemoveProductFromWarehouseAsync(int wpId)
+    {
+        var pw = await _appDbContext.WarehouseProducts.FirstOrDefaultAsync(x => x.Id == wpId);
+
+        if (pw is null)
+        {
+            return;
+        }
+
+        _appDbContext.WarehouseProducts.Remove(pw);
         await _appDbContext.SaveChangesAsync();
     }
 }

@@ -84,4 +84,17 @@ public class ProductService: IProductService
 
         return product;
     }
+
+    public async Task DelteProductAsync(int id)
+    {
+        var product = await _appDbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
+
+        if (product is null)
+        {
+            throw new ValidationException("Продукт не найден, нечего удалять");
+        }
+
+        _appDbContext.Products.Remove(product);
+        await _appDbContext.SaveChangesAsync();
+    }
 }
