@@ -2,7 +2,7 @@ header {
     background-color: #FEDBD0;
     height: 50px;
     align-content: center;
-    text-align: center;
+    text-align: left;
     justify-content: space-between;
 
     & a {

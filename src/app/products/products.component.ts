@@ -8,6 +8,7 @@ import { Validators, ReactiveFormsModule } from '@angular/forms';
 import { IProduct } from '../i-product';
 import {MatTableModule} from '@angular/material/table';
 import {CurrencyPipe} from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Injectable({
   providedIn: 'root' // или в конкретном модуле
@@ -15,14 +16,14 @@ import {CurrencyPipe} from '@angular/common';
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatTableModule, CurrencyPipe],
+  imports: [MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule, ReactiveFormsModule, MatTableModule, CurrencyPipe, MatIconModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent {
 
   productList: IProduct[] = []
-  displayedColumns: string[] = ['id', 'name', 'price'];
+  displayedColumns: string[] = ['id', 'name', 'price', 'delete'];
   createProductForm = this.fb.group({
     id: [0],
     name: ['', Validators.required],
@@ -37,7 +38,10 @@ export class ProductsComponent {
   }
 
   ngOnInit(): void {
-    
+    this.getProducts()
+  }
+
+  getProducts(){
     this.serviceProd.getProducts().subscribe({
       next: (value) => {
         this.productList = value 
@@ -48,5 +52,14 @@ export class ProductsComponent {
 
   getTotalCost() {
     return this.productList.map(t => t.price).reduce((acc, value) => acc + value, 0);
+  }
+
+  deleteProduct(e: MouseEvent, product?: IProduct){
+    this.serviceProd.deleteProduct(product?.id).subscribe({
+      next: () => {
+        this.getProducts()
+        this.cdr.detectChanges();
+      }
+    })
   }
 }

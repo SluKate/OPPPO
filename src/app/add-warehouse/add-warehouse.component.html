@@ -1,0 +1,7 @@
+<form [formGroup]="createWareHouseForm" (ngSubmit)="createWarehouse()">
+    <mat-form-field class="example-full-width">
+        <mat-label>Название</mat-label>
+        <input matInput formControlName="name" placeholder="Укажите название">
+      </mat-form-field>
+      <button mat-stroked-button>Добавить</button>
+</form>

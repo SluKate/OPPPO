@@ -12,14 +12,22 @@ export class WarehouseService {
   constructor(
     private http: HttpClient
   ) { 
-    this.apiUrl = "https://localhost:7275"
+    this.apiUrl = "https://localhost:7275/api/Warehouse"
   }
 
   getWarehouse(): Observable<any> {
-    return this.http.get<any>(this.apiUrl + '/api/Warehouse/all')
+    return this.http.get<any>(this.apiUrl + '/all')
   }
 
-  postProduct(body: any): Observable<any> {
-      return this.http.post<any>(this.apiUrl + '/api/Product', body)
+  addWarehouse(body: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl + '/create', body)
+  }
+
+  getWarehouseTotal(body: any): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/warehouse-stats', body)
+  }
+
+  postWarehouse(body: any): Observable<any> {
+      return this.http.post<any>(this.apiUrl, body)
   }
 }

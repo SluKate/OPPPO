@@ -22,4 +22,8 @@ export class ProductsService {
   postProduct(body: any): Observable<any> {
       return this.http.post<any>(this.apiUrl + '/api/Product', body)
   }
+
+  deleteProduct(id: number| undefined): Observable<any> {
+    return this.http.delete<any>(this.apiUrl + `/api/Product/delete/${id}`)
+}
 }
