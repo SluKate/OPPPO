@@ -24,6 +24,16 @@ builder.Services.AddDbContext<DAL.AppDbContext>(opt =>
     opt.UseSqlite(connectionString);
 });
 
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowSpecificOrigin",
+            builder => builder.WithOrigins("http://localhost:4200")
+                              .AllowAnyMethod()
+                              .AllowAnyHeader());
+    });
+
+builder.Services.AddControllers();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,6 +42,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseRouting();
+
+app.UseCors("AllowSpecificOrigin");
 
 app.UseHttpsRedirection();
 
