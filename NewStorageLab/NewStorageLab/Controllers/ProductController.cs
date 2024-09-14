@@ -56,4 +56,11 @@ public class ProductController : ControllerBase
 
         return Ok(res);
     }
+
+    [HttpDelete("delete")]
+    public async Task<ActionResult> DeleteProductAsync(int productId)
+    {
+        await _productService.DelteProductAsync(productId);
+        return Ok();
+    }
 }
