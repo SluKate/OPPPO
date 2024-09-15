@@ -9,19 +9,20 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import { IProduct } from '../i-product';
 import { ProductsService } from '../products.service';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-warehouse',
   standalone: true,
-  imports: [MatTableModule, MatInputModule, MatFormFieldModule, FormsModule, MatIconModule, MatSelectModule],
+  imports: [MatButtonModule, MatTableModule, MatInputModule, MatFormFieldModule, FormsModule, MatIconModule, MatSelectModule],
   templateUrl: './warehouse.component.html',
-  styleUrls: ['./warehouse.component.css'] // Исправлено на styleUrls
+  styleUrls: ['./warehouse.component.css']
 })
 export class WarehouseComponent {
 
   productList: IProduct[] = []
   wareHouseList: IWarehouse[] = [];
-  displayedColumns: string[] = ['id', 'name', 'totalProducts', 'totalPrice', 'addProduct',];
+  displayedColumns: string[] = ['id', 'name', 'totalProducts', 'totalPrice', 'addProduct', 'addProductCount', 'addProductButton'];
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -57,11 +58,19 @@ export class WarehouseComponent {
     });
   }
 
-  
   getProducts(){
     this.serviceProd.getProducts().subscribe({
       next: (value) => {
         this.productList = value 
+        this.cdr.detectChanges();
+      }
+    })
+  }
+  
+  addProduct(e: MouseEvent, product?: IProduct){
+    this.serviceProd.deleteProduct(product?.id).subscribe({
+      next: () => {
+        this.getProducts()
         this.cdr.detectChanges();
       }
     })

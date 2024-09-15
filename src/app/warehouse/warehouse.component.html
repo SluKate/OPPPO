@@ -31,6 +31,24 @@
             </mat-select>
           </mat-form-field>
       </ng-container>
+
+      <ng-container matColumnDef="addProductCount">
+        <th mat-header-cell *matHeaderCellDef> Количество </th>
+        <td mat-cell *matCellDef="let element">
+            <mat-form-field>
+            <mat-label>Введите</mat-label>
+            <input matInput type="number">
+          </mat-form-field>
+      </ng-container>
+
+      <ng-container matColumnDef="addProductButton">
+        <th mat-header-cell *matHeaderCellDef> Добавить </th>
+        <td mat-cell *matCellDef="let element">
+            <button class="button"
+            mat-stroked-button
+            (click)="addProduct($event, element)"> Добавить
+            </button>
+      </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="this.displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: this.displayedColumns;"></tr>
